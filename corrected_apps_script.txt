@@ -1,0 +1,244 @@
+function doPost(e) {
+  return processRequest(e);
+}
+
+function doGet(e) {
+  return processRequest(e);
+}
+
+// Secret token that your website knows
+// Generate this randomly and store it in your React app's environment variables
+const SECRET_TOKEN = "iuwrgnh8wuegh8weuafasi8uhfuyq32fi8ueqwaf8vuqhenfiquy34hwfyqwh4.dajfi38diuauhw"; // Replace with a long, random string
+
+// Add rate limiting to prevent abuse
+const RATE_LIMIT = {
+  requestsPerDay: 100,
+  ipCache: {}
+};
+
+function processRequest(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  
+  try {
+    // Debug logging
+    Logger.log("Request received");
+    Logger.log("Event object keys: " + Object.keys(e || {}));
+    
+    // Security checks
+    // 1. Verify the request token
+    const token = e && (e.parameter.token || (e.parameters && e.parameters.token));
+    if (!token || token !== SECRET_TOKEN) {
+      Logger.log("Invalid or missing token");
+      return ContentService
+        .createTextOutput(JSON.stringify({ 
+          "result": "error", 
+          "error": "Unauthorized access" 
+        }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // 2. Check referring domain (optional, but recommended)
+    // This limits requests to only come from your website
+    const referrer = e.parameter.referrer || "";
+    const allowedDomains = ["codefun.edu.vn", "www.codefun.edu.vn"]; // Update with your domains
+    let validReferrer = false;
+    
+    if (referrer) {
+      for (let i = 0; i < allowedDomains.length; i++) {
+        if (referrer.indexOf(allowedDomains[i]) !== -1) {
+          validReferrer = true;
+          break;
+        }
+      }
+    }
+    
+    if (!validReferrer && referrer) {
+      Logger.log("Invalid referrer: " + referrer);
+      return ContentService
+        .createTextOutput(JSON.stringify({ 
+          "result": "error", 
+          "error": "Invalid referrer" 
+        }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // Access the active spreadsheet (the one this script is bound to)
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (!ss) {
+      throw new Error("No active spreadsheet found. Make sure this script is attached to a Google Sheet.");
+    }
+    
+    var sheet = ss.getSheetByName("Form Responses") || ss.getSheets()[0];
+    
+    // Get form data with detailed logging
+    var formData = {};
+    
+    // We expect data to come primarily in parameter format from the URL
+    if (e && e.parameter) {
+      for (var param in e.parameter) {
+        if (param !== 'token' && param !== 'referrer') { // Skip security parameters
+          formData[param] = e.parameter[param];
+          Logger.log("Received parameter: " + param + " = " + e.parameter[param]);
+        }
+      }
+    }
+    
+    // As a fallback, check parameters too (sometimes used instead)
+    if (e && e.parameters) {
+      for (var param in e.parameters) {
+        if (param !== 'token' && param !== 'referrer' && !formData[param]) { // Skip security parameters
+          formData[param] = Array.isArray(e.parameters[param]) ? 
+                         e.parameters[param][0] : e.parameters[param];
+          Logger.log("Received from parameters: " + param + " = " + formData[param]);
+        }
+      }
+    }
+    
+    // Final fallback - check for POST data in JSON format
+    if (e && e.postData && e.postData.contents) {
+      try {
+        var jsonData = JSON.parse(e.postData.contents);
+        for (var key in jsonData) {
+          if (key !== 'token' && key !== 'referrer' && !formData[key]) { // Skip security parameters
+            formData[key] = jsonData[key];
+            Logger.log("Received from JSON: " + key + " = " + jsonData[key]);
+          }
+        }
+      } catch (err) {
+        Logger.log("Error parsing JSON: " + err.toString());
+      }
+    }
+    
+    // Data validation - ensure required fields are present
+    const requiredFields = ["Name", "Phone", "Subject", "Message"];
+    for (let i = 0; i < requiredFields.length; i++) {
+      const field = requiredFields[i];
+      if (!formData[field] || formData[field].trim() === '') {
+        Logger.log("Missing required field: " + field);
+        return ContentService
+          .createTextOutput(JSON.stringify({ 
+            "result": "error", 
+            "error": "Missing required field: " + field 
+          }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+    
+    // Extract data from formData with detailed logging
+    var timestamp = formData.Timestamp || new Date().toString();
+    var name = formData.Name || "";
+    var email = formData.Email || "";
+    var phone = formData.Phone || "";
+    
+    // Ensure phone number is treated as text by adding a single quote if it doesn't already have one
+    if (phone && phone.charAt(0) !== "'") {
+      phone = "'" + phone;
+    }
+    
+    var subject = formData.Subject || "";
+    var message = formData.Message || "";
+    
+    // Sanitize input (basic)
+    name = name.replace(/[=+\-@\<\>]/g, "");
+    email = email.replace(/[=+\-@\<\>]/g, "").slice(0, 100);
+    subject = subject.replace(/[=+\-@\<\>]/g, "").slice(0, 100);
+    message = message.replace(/[=+\-@\<\>]/g, "").slice(0, 500);
+    
+    Logger.log("Data to be saved:");
+    Logger.log("Timestamp: " + timestamp);
+    Logger.log("Name: " + name);
+    Logger.log("Email: " + email);
+    Logger.log("Phone: " + phone);
+    Logger.log("Subject: " + subject);
+    Logger.log("Message: " + message);
+    
+    // Append the data to the sheet
+    sheet.appendRow([timestamp, name, email, phone, subject, message]);
+    
+    // Return success response with the data we received
+    return ContentService
+      .createTextOutput(JSON.stringify({ 
+        "result": "success", 
+        "data": {
+          Timestamp: timestamp,
+          Name: name,
+          Email: email,
+          Phone: phone,
+          Subject: subject,
+          Message: message
+        }
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } 
+  catch(error) {
+    // Log the error
+    Logger.log("Error in processRequest: " + error.toString());
+    
+    // Return error response
+    return ContentService
+      .createTextOutput(JSON.stringify({ 
+        "result": "error", 
+        "error": error.toString() 
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } 
+  finally {
+    lock.releaseLock();
+  }
+}
+
+function initialSetup() {
+  try {
+    // Make sure we're working with a valid spreadsheet
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (!ss) {
+      Logger.log("Error: No active spreadsheet found. Make sure this script is attached to a Google Sheet.");
+      return "Error: No active spreadsheet found. This script needs to be created within a Google Sheet.";
+    }
+    
+    // Check if we have a sheet named "Form Responses"
+    var sheet = ss.getSheetByName("Form Responses");
+    
+    // If the sheet doesn't exist, create it
+    if (!sheet) {
+      sheet = ss.insertSheet("Form Responses");
+      
+      // Set up the headers
+      var headers = [
+        "Timestamp", 
+        "Name", 
+        "Email", 
+        "Phone", 
+        "Subject", 
+        "Message"
+      ];
+      
+      // Add headers to the first row
+      sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+      
+      // Freeze the header row
+      sheet.setFrozenRows(1);
+      
+      // Format the header row
+      sheet.getRange(1, 1, 1, headers.length).setFontWeight("bold");
+      
+      // Format the phone column as plain text
+      sheet.getRange(1, 4, sheet.getMaxRows(), 1).setNumberFormat("@");
+      
+      // Auto-resize columns
+      for (var i = 1; i <= headers.length; i++) {
+        sheet.autoResizeColumn(i);
+      }
+    } else {
+      // If the sheet already exists, ensure the phone column is formatted as text
+      sheet.getRange(1, 4, sheet.getMaxRows(), 1).setNumberFormat("@");
+    }
+    
+    Logger.log("Setup completed successfully");
+    return "Setup completed successfully";
+  } catch (error) {
+    Logger.log("Error in initialSetup: " + error.toString());
+    return "Error: " + error.toString();
+  }
+} 
