@@ -22,3 +22,4 @@ jobs:
         with:
           branch: gh-pages  # Branch dùng để host
           folder: cfweb  # Thư mục chứa website đã build
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
