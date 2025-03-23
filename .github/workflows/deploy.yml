@@ -20,6 +20,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # Branch dùng để host
+          branch: main  # Branch dùng để host
           folder: cfweb  # Thư mục chứa website đã build
           token: ${{ secrets.MY_GITHUB_TOKEN }}
