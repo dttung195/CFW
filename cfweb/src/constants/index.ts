@@ -1,4 +1,4 @@
-import { FaCode, FaLaptopCode, FaMobileAlt, FaDatabase, FaRobot, FaGamepad, FaGraduationCap, FaChartLine, FaUsers, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaCode, FaLaptopCode, FaMobileAlt, FaDatabase, FaRobot, FaGamepad } from 'react-icons/fa';
 
 export const navigationLinks = [
   { to: '/', label: 'Home' },

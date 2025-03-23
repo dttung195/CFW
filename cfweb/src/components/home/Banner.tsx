@@ -95,7 +95,6 @@ const Banner = ({ isVisible }: BannerProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
   const [codeText, setCodeText] = useState('');
   const fullCodeText = 'function learnToCode() {\n  const skills = [];\n  const dedication = true;\n  \n  while (dedication) {\n    skills.push(newSkill());\n    improve(skills);\n  }\n  \n  return success;\n}';
   
@@ -209,7 +208,6 @@ const Banner = ({ isVisible }: BannerProps) => {
     setIsDragging(true);
     setStartX(e.clientX);
     setCurrentX(e.clientX);
-    setDragOffset(0);
     
     if (sliderRef.current) {
       sliderRef.current.style.cursor = 'grabbing';
@@ -222,7 +220,6 @@ const Banner = ({ isVisible }: BannerProps) => {
     setCurrentX(e.clientX);
     
     const diff = e.clientX - startX;
-    setDragOffset(diff);
     
     if (sliderRef.current) {
       const baseTransform = -currentHeroSlide * 100;
@@ -254,7 +251,6 @@ const Banner = ({ isVisible }: BannerProps) => {
     }
     
     setIsDragging(false);
-    setDragOffset(0);
   };
 
   const handleMouseLeave = () => {
@@ -266,7 +262,6 @@ const Banner = ({ isVisible }: BannerProps) => {
       }
       
       setIsDragging(false);
-      setDragOffset(0);
     }
   };
 

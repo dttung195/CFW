@@ -189,8 +189,6 @@ button, a, .nav-link, .card, .interactive {
   user-select: none;
 }
 
-/* Remove all other animation classes and keyframes that we're not using */
-
 /* Cursor styles for draggable elements */
 .slider-slide {
   cursor: grab;
@@ -238,9 +236,4 @@ button, a, .nav-link, .card, .interactive {
   border-radius: 50%;
   animation: attention-ring 2s infinite;
   z-index: -1;
-}
-
-/* Pause animations on hover */
-.floating-buttons-container:hover .floating-button {
-  animation-play-state: paused;
 }

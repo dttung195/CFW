@@ -3,7 +3,7 @@ import { FaArrowUp } from 'react-icons/fa';
 import { SiZalo, SiMessenger } from 'react-icons/si';
 
 const FloatingButtons = () => {
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {

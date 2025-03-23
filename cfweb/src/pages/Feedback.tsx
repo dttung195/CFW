@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FaStar, FaUser, FaYoutube } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaUser, FaYoutube } from 'react-icons/fa';
 import { testimonials, studentProjects } from '../constants';
 
 const Feedback = () => {

@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaUser, FaSignOutAlt, FaChevronDown } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import logoNgang from '../../assets/images/logo-ngang.png';
-import ColorLogo from '../../assets/images/logo-color';
 
 interface NavLink {
   name: string;

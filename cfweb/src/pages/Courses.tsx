@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaSearch, FaStar, FaRegStar, FaStarHalfAlt, FaFilter, FaClock, FaUser, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaSearch, FaFilter, FaClock, FaUser, FaChalkboardTeacher } from 'react-icons/fa';
 
 // Mock course data
 const coursesData = [
@@ -173,25 +173,6 @@ const Courses = () => {
     
     return matchesSearch && matchesCategory && matchesLevel;
   });
-
-  // Render star ratings
-  const renderStars = (rating: number) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-    
-    for (let i = 1; i <= 5; i++) {
-      if (i <= fullStars) {
-        stars.push(<FaStar key={i} className="text-yellow-400" />);
-      } else if (i === fullStars + 1 && hasHalfStar) {
-        stars.push(<FaStarHalfAlt key={i} className="text-yellow-400" />);
-      } else {
-        stars.push(<FaRegStar key={i} className="text-yellow-400" />);
-      }
-    }
-    
-    return <div className="flex">{stars}</div>;
-  };
 
   return (
     <div className="min-h-screen py-20">
