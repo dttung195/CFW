@@ -16,8 +16,9 @@ jobs:
           npm install
           npm run build  # Hoặc lệnh build tùy framework
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # Branch dùng để host
-          folder: cfweb  # Thư mục chứa website đã build
+          branch: main
+          folder: dist  # Đổi thành "build" nếu dùng CRA
+          token: ${{ secrets.GITHUB_TOKEN }}
