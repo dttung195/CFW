@@ -13,13 +13,11 @@ jobs:
 
       - name: Build website
         run: |
-          cd cfweb
           npm install
           npm run build  # Hoặc lệnh build tùy framework
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: main  # Branch dùng để host
+          branch: gh-pages  # Branch dùng để host
           folder: cfweb  # Thư mục chứa website đã build
-          token: ${{ secrets.MY_GITHUB_TOKEN }}

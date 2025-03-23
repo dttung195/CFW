@@ -1,53 +1,43 @@
-# Code Fun - Technology Education Center Website
+# Code Fun Website
 
-A modern, responsive website for Code Fun, a technology education center, built with React, TypeScript, and Tailwind CSS.
+A modern, responsive website for Code Fun, a technology education center dedicated to empowering students with cutting-edge programming skills.
 
 ## Features
 
-- Responsive design that works on all devices
-- Modern UI with animations and parallax effects
-- SEO optimized with meta tags and structured data
-- Interactive components like sliders and forms
-- Floating contact buttons for easy access
+- Modern UI with responsive design
+- Interactive components
+- Course catalog with filtering and search
+- Contact form with validation
+- Floating action buttons for quick navigation
 
-## Pages
+## Tech Stack
 
-- Home (Landing Page)
-- Courses
-- Contact
-- Feedback
-- Blog
-
-## Technologies Used
-
-- React 18
+- React
 - TypeScript
 - Tailwind CSS
-- Framer Motion for animations
-- React Router for navigation
-- React Helmet for SEO
-- React Slick for carousels
+- React Router
+- React Icons
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js (v14.0.0 or later)
 - npm or yarn
 
 ### Installation
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/codefun-website.git
-cd codefun-website
+git clone https://github.com/yourusername/cfweb.git
+cd cfweb
 ```
 
 2. Install dependencies
 ```bash
 npm install
 # or
-yarn install
+yarn
 ```
 
 3. Start the development server
@@ -59,20 +49,33 @@ yarn dev
 
 4. Open your browser and navigate to `http://localhost:5173`
 
-## Building for Production
+## Project Structure
 
-```bash
-npm run build
-# or
-yarn build
 ```
+cfweb/
+├── public/            # Static assets
+├── src/
+│   ├── components/    # Reusable UI components
+│   │   ├── layout/    # Layout components
+│   │   └── shared/    # Shared components
+│   ├── pages/         # Page components
+│   ├── App.tsx        # Main App component
+│   ├── main.tsx       # Entry point
+│   └── index.css      # Global styles
+├── index.html         # HTML template
+├── package.json       # Dependencies and scripts
+├── tsconfig.json      # TypeScript configuration
+├── tailwind.config.js # Tailwind CSS configuration
+└── vite.config.ts     # Vite configuration
+```
+
+## Available Scripts
+
+- `npm run dev` - Start the development server
+- `npm run build` - Build the production-ready app
+- `npm run preview` - Preview the production build locally
+- `npm run lint` - Run ESLint to check for code issues
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Images from Unsplash
-- Icons from React Icons
-- Fonts from Google Fonts 
+MIT
