@@ -13,6 +13,7 @@ jobs:
 
       - name: Build website
         run: |
+          cd cfweb
           npm install
           npm run build  # Hoặc lệnh build tùy framework
 
