@@ -1,14 +1,40 @@
 
 
+export enum CourseCategory {
+  Android = "Android",
+  iOS = "iOS",
+  Backend = "Backend"
+}
+
+export enum CourseLevel {
+  All,
+  Beginner,
+  Basic,
+  Advance
+}
+
+export enum CourseTag {
+  Android = "Android",
+  iOS = "iOS",
+  Backend = "Backend",
+  Swift = "Swift",
+  Java = "Java",
+  Kotlin = "Kotlin",
+  Mobile = "Mobile",
+  Web = "Web"
+}
+
 export const courseLevels = ['Tất cả cấp độ', 'Mới Bắt Đầu', 'Cơ bản', 'Nâng Cao'];
+export const courseCategories = [CourseCategory.Android, CourseCategory.iOS, CourseCategory.Backend]
+
 
 export const coursesData = [
     {
       id: 1,
       title: 'Lập trình Kotlin',
       slug: 'kotlin',
-      category: 'Lập Trình Cơ Bản',
-      level: 1,
+      category: CourseCategory.Android,
+      level: CourseLevel.Beginner,
       rating: 4.8,
       reviews: 245,
       students: 1250,
@@ -18,14 +44,14 @@ export const coursesData = [
       image: '/images/web-dev-course.jpg',
       description: 'Là một ngôn ngữ lập trình hiện đại, đa nền tảng, được phát triển bởi JetBrains. Kotlin được thiết kế để thay thế hoặc bổ sung cho Java, với cú pháp ngắn gọn, an toàn và mạnh mẽ hơn.',
       featured: false,
-      tags: ['Kotlin', 'Android', 'Mobile', 'Java']
+      tags: [CourseTag.Kotlin, CourseTag.Android, CourseTag.Mobile, CourseTag.Java]
     },
     {
       id: 2,
       title: 'Lập trình Android cơ bản',
       slug: 'android-basic',
-      category: 'Android',
-      level: 2,
+      category: CourseCategory.Android,
+      level: CourseLevel.Basic,
       rating: 4.9,
       reviews: 189,
       students: 980,
@@ -35,14 +61,14 @@ export const coursesData = [
       image: '/images/react-course.jpg',
       description: 'Làm quen với lập trình ứng dụng di động. Xây dựng các ứng dụng Android cơ bản',
       featured: true,
-      tags: ['Kotlin', 'Android', 'Mobile', 'Java']
+      tags: [CourseTag.Kotlin, CourseTag.Android, CourseTag.Mobile, CourseTag.Java]
     },
     {
       id: 3,
       title: 'Lập trình Android nâng cao',
       slug: 'android-advance',
-      category: 'Android',
-      level: 3,
+      category: CourseCategory.Android,
+      level: CourseLevel.Advance,
       rating: 4.7,
       reviews: 320,
       students: 1750,
@@ -52,14 +78,14 @@ export const coursesData = [
       image: '/images/python-course.jpg',
       description: 'Hiểu được cách các lập trình viên chuyên nghiệp phát triển 1 ứng dụng Android được. Trang bị các kỹ năng cần thiết cho công việc',
       featured: false,
-      tags: ['Kotlin', 'Android', 'Mobile', 'Java']
+      tags: [CourseTag.Kotlin, CourseTag.Android, CourseTag.Mobile, CourseTag.Java]
     },
     {
       id: 4,
       title: 'Lập trình iOS cơ bản',
       slug: 'ios-basic',
-      category: 'iOS',
-      level: 2,
+      category: CourseCategory.iOS,
+      level: CourseLevel.Basic,
       rating: 4.6,
       reviews: 156,
       students: 820,
@@ -69,14 +95,14 @@ export const coursesData = [
       image: '/images/flutter-course.jpg',
       description: 'Làm quen với ngôn ngữ lập trình Swift. Tạo được các ứng dụng iOS cơ bản',
       featured: true,
-      tags: ['Swift', 'iOS', 'Mobile']
+      tags: [CourseTag.Swift, CourseTag.iOS, CourseTag.Mobile]
     },
     {
       id: 5,
       title: 'Lập trình iOS nâng cao',
       slug: 'ios-advance',
-      category: 'iOS',
-      level: 3,
+      category: CourseCategory.iOS,
+      level: CourseLevel.Advance,
       rating: 4.5,
       reviews: 178,
       students: 950,
@@ -86,14 +112,14 @@ export const coursesData = [
       image: '/images/nodejs-course.jpg',
       description: 'Phát triển các ứng dụng iOS vận dụng các kiến thức nâng cao sát với yêu cầu thực tiễn',
       featured: false,
-      tags: ['Swift', 'iOS', 'Mobile']
+      tags: [CourseTag.Swift, CourseTag.iOS, CourseTag.Mobile]
     },
     {
       id: 6,
       title: 'Lập trình Backend cơ bản',
       slug: 'backend-basic',
-      category: 'Backend',
-      level: 2,
+      category: CourseCategory.Backend,
+      level: CourseLevel.Basic,
       rating: 4.9,
       reviews: 210,
       students: 890,
@@ -103,14 +129,14 @@ export const coursesData = [
       image: '/images/data-science-course.jpg',
       description: 'Hiều và xây dựng được hệ thống Backend đơn giản',
       featured: true,
-      tags: ['Java', 'Backend']
+      tags: [CourseTag.Java, CourseTag.Backend]
     },
     {
       id: 7,
       title: 'Lập trình Backend nâng cao',
       slug: 'backend-advance',
-      category: 'Backend',
-      level: 3,
+      category: CourseCategory.Backend,
+      level: CourseLevel.Advance,
       rating: 4.7,
       reviews: 165,
       students: 780,
@@ -120,6 +146,6 @@ export const coursesData = [
       image: '/images/game-dev-course.jpg',
       description: 'Xây dựng được hệ thống Backend phức tạp, có thể ứng dụng thực tiễn',
       featured: false,
-      tags: ['Java', 'Backend']
+      tags: [CourseTag.Java, CourseTag.Backend]
     }
   ];

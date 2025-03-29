@@ -4,18 +4,6 @@ import CourseCard from '../components/shared/CourseCard.tsx';
 import { coursesData } from '../data/CourseData';
 import { courseLevels } from '../data/CourseData';
 
-
-// Categories for filtering
-const categories = [
-  'Tất Cả Danh Mục',
-  'Lập Trình Web',
-  'Phát Triển Mobile',
-  'Lập Trình',
-  'Khoa Học Dữ Liệu',
-  'Phát Triển Game',
-  'Trí Tuệ Nhân Tạo'
-];
-
 const Courses = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Tất Cả Danh Mục');
@@ -165,7 +153,7 @@ const Courses = () => {
               onClick={() => {
                 setSearchTerm('');
                 setSelectedCategory('Tất Cả Danh Mục');
-                setSelectedLevel('Tất Cả Cấp Độ');
+                setSelectedLevel(courseLevels[0]);
               }}
               className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-6 rounded-lg transition duration-300"
             >

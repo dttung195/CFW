@@ -3,6 +3,7 @@ import FormField from '../form/FormField';
 import { submitToGoogleSheet } from '../../utils/googleSheetService';
 import useFormPersist from '../../hooks/useFormPersist';
 import { isValidVietnamesePhone, formatPhoneNumber } from '../../utils/validation';
+import { CourseCategory } from '../../data/CourseData';
 
 interface FormState {
   name: string;
@@ -25,10 +26,10 @@ const initialFormState: FormState = {
 
 const subjects = [
     { value: '', label: 'Chọn khoá học' },
-    { value: 'Android', label: 'Lập trình ứng dụng Android' },
-    { value: 'iOS', label: 'Lập trình ứng dụng iOS' },
-    { value: 'Web', label: 'Lập trình Web' },
-    { value: 'Backend', label: 'Lập trình Backend' },
+    { value: CourseCategory.Android, label: 'Lập trình ứng dụng Android' },
+    { value: CourseCategory.iOS, label: 'Lập trình ứng dụng iOS' },
+    // { value: 'Web', label: 'Lập trình Web' },
+    { value: CourseCategory.Backend, label: 'Lập trình Backend' },
     { value: 'Cần tư vấn thêm', label: 'Tôi cần tư vấn thêm' },
 ];
 

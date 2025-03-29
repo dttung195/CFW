@@ -37,7 +37,7 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
             course.level === 2 ? 'bg-yellow-100 text-yellow-800' :
             'bg-green-100 text-green-800'
           }`}>
-            {courseLevels[course.level + 1]}
+            {courseLevels[course.level]}
           </span>
         </div>
       </div>
