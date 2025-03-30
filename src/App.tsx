@@ -23,6 +23,7 @@ function App() {
           <Route path="/" element={homeInstance} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/contact/:id" element={<Contact />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="*" element={<NotFound />} />

@@ -1,8 +1,11 @@
 import React from 'react';
 import ContactForm from '../components/contact/ContactForm';
 import ContactInfo from '../components/contact/ContactInfo';
+import { useParams } from 'react-router-dom';
 
 const Contact: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const courseId = id || "";
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4">
@@ -21,7 +24,7 @@ const Contact: React.FC = () => {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <ContactForm />
+            <ContactForm courseId={courseId} />
           </div>
         </div>
 

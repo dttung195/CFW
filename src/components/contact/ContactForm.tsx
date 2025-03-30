@@ -3,7 +3,11 @@ import FormField from '../form/FormField';
 import { submitToGoogleSheet } from '../../utils/googleSheetService';
 import useFormPersist from '../../hooks/useFormPersist';
 import { isValidVietnamesePhone, formatPhoneNumber } from '../../utils/validation';
-import { CourseCategory } from '../../data/CourseData';
+import { filterSubjects, coursesData } from '../../data/CourseData';
+
+interface ContactFormProps {
+  courseId: string; // Define the courseId prop type
+}
 
 interface FormState {
   name: string;
@@ -13,6 +17,7 @@ interface FormState {
   message: string;
   // Store formatted phone for display
   formattedPhone?: string;
+  registerMessage: string;
 }
 
 const initialFormState: FormState = {
@@ -22,21 +27,13 @@ const initialFormState: FormState = {
   subject: '',
   message: '',
   formattedPhone: '',
+  registerMessage: ''
 };
-
-const subjects = [
-    { value: '', label: 'Chọn khoá học' },
-    { value: CourseCategory.Android, label: 'Lập trình ứng dụng Android' },
-    { value: CourseCategory.iOS, label: 'Lập trình ứng dụng iOS' },
-    // { value: 'Web', label: 'Lập trình Web' },
-    { value: CourseCategory.Backend, label: 'Lập trình Backend' },
-    { value: 'Cần tư vấn thêm', label: 'Tôi cần tư vấn thêm' },
-];
 
 // One day in milliseconds - expires form data after 24 hours
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
-const ContactForm: React.FC = () => {
+const ContactForm: React.FC<ContactFormProps> = ({ courseId }) => {
   // Use our custom hook to persist form data - expires after 1 day
   const [formData, setFormData, clearFormDataOriginal] = useFormPersist<FormState>(
     'contact', // unique key for this form
@@ -58,10 +55,17 @@ const ContactForm: React.FC = () => {
     if (formData.phone && formData.phone !== formData.formattedPhone) {
       const formatted = formatPhoneNumber(formData.phone);
       if (formatted !== formData.phone) {
-        setFormData(prev => ({ ...prev, formattedPhone: formatted }));
+          const course = coursesData.find(course => course.id === parseInt(courseId));
+          console.log(course)
+          console.log(filterSubjects.find(s => s.value === course?.category))
+          if (course) {
+            setFormData(prev => ({ ...prev, formattedPhone: formatted, subject: filterSubjects.find(s => s.value === course.category)?.value as string, registerMessage: course.title}));
+          } else {
+            setFormData(prev => ({ ...prev, formattedPhone: formatted }));
+          }
       }
     }
-  }, [formData.phone, formData.formattedPhone, setFormData]);
+  }, [formData.phone, formData.formattedPhone, courseId, setFormData]);
 
   // Wrapper for clearFormData that also clears validation errors and resets touched state
   const clearFormData = () => {
@@ -220,7 +224,7 @@ const ContactForm: React.FC = () => {
     if (!validateForm()) {
       return;
     }
-    
+
     setIsSubmitting(true);
 
     try {
@@ -360,7 +364,7 @@ const ContactForm: React.FC = () => {
             type="select"
             required={true}
             onChange={handleChange}
-            options={subjects}
+            options={filterSubjects}
             {...createFieldProps('subject')}
           />
           {validationErrors.subject && (

@@ -24,13 +24,22 @@ export enum CourseTag {
   Web = "Web"
 }
 
+export const filterSubjects = [
+    { value: '', label: 'Chọn khoá học' },
+    { value: CourseCategory.Android, label: 'Lập trình ứng dụng Android' },
+    { value: CourseCategory.iOS, label: 'Lập trình ứng dụng iOS' },
+    // { value: 'Web', label: 'Lập trình Web' },
+    { value: CourseCategory.Backend, label: 'Lập trình Backend' },
+    { value: 'Cần tư vấn thêm', label: 'Tôi cần tư vấn thêm' },
+];
+
 export const courseLevels = ['Tất cả cấp độ', 'Mới Bắt Đầu', 'Cơ bản', 'Nâng Cao'];
 export const courseCategories = [CourseCategory.Android, CourseCategory.iOS, CourseCategory.Backend]
 
 
 export const coursesData = [
     {
-      id: 1,
+      id: 0,
       title: 'Lập trình Kotlin',
       slug: 'kotlin',
       category: CourseCategory.Android,
@@ -47,7 +56,7 @@ export const coursesData = [
       tags: [CourseTag.Kotlin, CourseTag.Android, CourseTag.Mobile, CourseTag.Java]
     },
     {
-      id: 2,
+      id: 1,
       title: 'Lập trình Android cơ bản',
       slug: 'android-basic',
       category: CourseCategory.Android,
@@ -64,7 +73,7 @@ export const coursesData = [
       tags: [CourseTag.Kotlin, CourseTag.Android, CourseTag.Mobile, CourseTag.Java]
     },
     {
-      id: 3,
+      id: 2,
       title: 'Lập trình Android nâng cao',
       slug: 'android-advance',
       category: CourseCategory.Android,
@@ -81,7 +90,7 @@ export const coursesData = [
       tags: [CourseTag.Kotlin, CourseTag.Android, CourseTag.Mobile, CourseTag.Java]
     },
     {
-      id: 4,
+      id: 3,
       title: 'Lập trình iOS cơ bản',
       slug: 'ios-basic',
       category: CourseCategory.iOS,
@@ -98,7 +107,7 @@ export const coursesData = [
       tags: [CourseTag.Swift, CourseTag.iOS, CourseTag.Mobile]
     },
     {
-      id: 5,
+      id: 4,
       title: 'Lập trình iOS nâng cao',
       slug: 'ios-advance',
       category: CourseCategory.iOS,
@@ -115,7 +124,7 @@ export const coursesData = [
       tags: [CourseTag.Swift, CourseTag.iOS, CourseTag.Mobile]
     },
     {
-      id: 6,
+      id: 5,
       title: 'Lập trình Backend cơ bản',
       slug: 'backend-basic',
       category: CourseCategory.Backend,
@@ -132,7 +141,7 @@ export const coursesData = [
       tags: [CourseTag.Java, CourseTag.Backend]
     },
     {
-      id: 7,
+      id: 6,
       title: 'Lập trình Backend nâng cao',
       slug: 'backend-advance',
       category: CourseCategory.Backend,

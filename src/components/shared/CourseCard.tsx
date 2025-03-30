@@ -2,6 +2,7 @@
 import React from 'react';
 import { FaClock } from 'react-icons/fa';
 import { courseLevels } from '../../data/CourseData';
+import { Link } from 'react-router-dom';
 
 interface Course {
   id: number;
@@ -62,7 +63,12 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
         
         <div className="flex justify-between items-center">
           <span className="text-2xl font-bold text-primary">${course.price}</span>
-          <div className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded transition duration-300">Đăng ký ngay</div>
+          <Link
+            to={`/contact/${course.id}`} // Navigate to Contact page with Course ID
+            className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded transition duration-300"
+          >
+            Đăng ký ngay
+          </Link>
           {/* <Link
             to={`/courses/${course.slug}`}
             className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded transition duration-300"

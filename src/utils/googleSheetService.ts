@@ -14,6 +14,7 @@ export interface ContactFormData {
   phone: string;
   subject: string;
   message: string;
+  registerMessage: string;
 }
 
 // Response interface from Google Apps Script
@@ -48,6 +49,7 @@ export const submitToGoogleSheet = async (formData: ContactFormData): Promise<Sh
       Phone: "'" + formData.phone, // Adding single quote to preserve leading zeros
       Subject: formData.subject,
       Message: formData.message,
+      RegisterMessage: formData.registerMessage,
       // Add security parameters
       token: SECRET_TOKEN,
       referrer: window.location.hostname
@@ -58,6 +60,7 @@ export const submitToGoogleSheet = async (formData: ContactFormData): Promise<Sh
     // Create URL with parameters
     const url = new URL(SCRIPT_URL);
     Object.entries(data).forEach(([key, value]) => {
+      console.log("key: ", key, "param: ", value);
       url.searchParams.append(key, String(value));
     });
     

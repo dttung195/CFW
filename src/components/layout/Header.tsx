@@ -58,10 +58,11 @@ const Header = () => {
   // Update active tab based on location
   useEffect(() => {
     // Find the active link based on current path or hash
-    const activeLink = navLinks.find(link => 
-      link.path === location.pathname || 
+    const activeLink = navLinks.find(link => {
+      return (link.path != '/' && location.pathname.startsWith(link.path)) || 
+      (link.path === location.pathname && link.path === '/' ) || 
       (link.section && location.pathname === '/' && location.hash === `#${link.section}` && link.name !== 'Course')
-    );
+    });
     
     if (activeLink) {
       const prevTab = activeTabRef.current;
