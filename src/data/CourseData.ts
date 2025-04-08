@@ -1,4 +1,7 @@
-
+import kotlinLogo from '../assets/images/kotlin-logo.png';
+import androidLogo from '../assets/images/android-logo.webp';
+import xcodeLogo from '../assets/images/xcode-logo.webp';
+import backendLogo from '../assets/images/backend-logo.jpg';
 
 export enum CourseCategory {
   Android = "Android",
@@ -49,9 +52,9 @@ export const coursesData = [
       students: 1250,
       duration: '10 buổi',
       instructor: 'Sarah Johnson',
-      price: 49.99,
-      image: '/images/web-dev-course.jpg',
-      description: 'Là một ngôn ngữ lập trình hiện đại, đa nền tảng, được phát triển bởi JetBrains. Kotlin được thiết kế để thay thế hoặc bổ sung cho Java, với cú pháp ngắn gọn, an toàn và mạnh mẽ hơn.',
+      price: "2.000.000",
+      image: kotlinLogo,
+      description: 'Lập trình căn bản và nâng cao ngôn ngữ Kotlin. Tư duy lập trình hướng đối tượng.',
       featured: false,
       tags: [CourseTag.Kotlin, CourseTag.Android, CourseTag.Mobile, CourseTag.Java]
     },
@@ -66,8 +69,8 @@ export const coursesData = [
       students: 980,
       duration: '20 buổi',
       instructor: 'Michael Chen',
-      price: 69.99,
-      image: '/images/react-course.jpg',
+      price: "5.500.000",
+      image: androidLogo,
       description: 'Làm quen với lập trình ứng dụng di động. Xây dựng các ứng dụng Android cơ bản',
       featured: true,
       tags: [CourseTag.Kotlin, CourseTag.Android, CourseTag.Mobile, CourseTag.Java]
@@ -83,9 +86,9 @@ export const coursesData = [
       students: 1750,
       duration: '25 buổi',
       instructor: 'Emily Rodriguez',
-      price: 59.99,
-      image: '/images/python-course.jpg',
-      description: 'Hiểu được cách các lập trình viên chuyên nghiệp phát triển 1 ứng dụng Android được. Trang bị các kỹ năng cần thiết cho công việc',
+      price: "6.500.000",
+      image: androidLogo,
+      description: 'Nâng cao kiến thức lập trình Android. Hiểu sâu và tư duy về kiến trúc dự án trong  thực tế',
       featured: false,
       tags: [CourseTag.Kotlin, CourseTag.Android, CourseTag.Mobile, CourseTag.Java]
     },
@@ -100,8 +103,8 @@ export const coursesData = [
       students: 820,
       duration: '20 buổi',
       instructor: 'David Kim',
-      price: 79.99,
-      image: '/images/flutter-course.jpg',
+      price: "6.000.000",
+      image: xcodeLogo,
       description: 'Làm quen với ngôn ngữ lập trình Swift. Tạo được các ứng dụng iOS cơ bản',
       featured: true,
       tags: [CourseTag.Swift, CourseTag.iOS, CourseTag.Mobile]
@@ -117,8 +120,8 @@ export const coursesData = [
       students: 950,
       duration: '30 buổi',
       instructor: 'James Wilson',
-      price: 69.99,
-      image: '/images/nodejs-course.jpg',
+      price: "8.000.000",
+      image: xcodeLogo,
       description: 'Phát triển các ứng dụng iOS vận dụng các kiến thức nâng cao sát với yêu cầu thực tiễn',
       featured: false,
       tags: [CourseTag.Swift, CourseTag.iOS, CourseTag.Mobile]
@@ -134,8 +137,8 @@ export const coursesData = [
       students: 890,
       duration: '20 buổi',
       instructor: 'Sophia Martinez',
-      price: 89.99,
-      image: '/images/data-science-course.jpg',
+      price: "7.000.000",
+      image: backendLogo,
       description: 'Hiều và xây dựng được hệ thống Backend đơn giản',
       featured: true,
       tags: [CourseTag.Java, CourseTag.Backend]
@@ -151,8 +154,8 @@ export const coursesData = [
       students: 780,
       duration: '30 buổi',
       instructor: 'Alex Thompson',
-      price: 79.99,
-      image: '/images/game-dev-course.jpg',
+      price: "9.000.000",
+      image: backendLogo,
       description: 'Xây dựng được hệ thống Backend phức tạp, có thể ứng dụng thực tiễn',
       featured: false,
       tags: [CourseTag.Java, CourseTag.Backend]

@@ -11,7 +11,7 @@ interface Course {
   category: string;
   level: number;
   duration: string;
-  price: number;
+  price: string;
   image: string;
   description: string;
   featured: boolean;
@@ -25,7 +25,7 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
         <img
           src={course.image}
           alt={course.title}
-          className="w-full h-48 object-cover"
+          className="w-full h-48 object-contain"
         />
         {course.featured && (
           <div className="absolute top-4 right-4 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -62,7 +62,7 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
         </div>
         
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-bold text-primary">${course.price}</span>
+          <span className="text-2xl font-bold text-primary">{course.price} VNĐ</span>
           <Link
             to={`/contact/${course.id}`} // Navigate to Contact page with Course ID
             className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded transition duration-300"

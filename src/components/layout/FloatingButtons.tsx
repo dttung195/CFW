@@ -40,7 +40,7 @@ const FloatingButtons = () => {
 
       {/* Zalo button */}
       <a
-        href="https://zalo.me/0833551357"
+        href="https://zalo.me/0589985789"
         target="_blank"
         rel="noopener noreferrer"
         className="p-4 rounded-full bg-[#0068FF] text-white shadow-lg transition-all duration-300 hover:bg-[#0052CC] hover:scale-125 focus:outline-none w-14 h-14 flex items-center justify-center floating-button zalo"

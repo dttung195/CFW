@@ -43,6 +43,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ courseId }) => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for error message
   
   // Field-specific validation errors
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
@@ -79,7 +80,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ courseId }) => {
     setTouchedFields({});
     
     // Clear success message
-    setSuccessMessage(null);
+    // setSuccessMessage(null);
+    setErrorMessage(null); // Clear error message
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -210,6 +212,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ courseId }) => {
     
     // Reset any previous success message
     setSuccessMessage(null);
+    setErrorMessage(null); // Reset error message
     
     // Mark all fields as touched before submission validation
     setTouchedFields({
@@ -235,18 +238,11 @@ const ContactForm: React.FC<ContactFormProps> = ({ courseId }) => {
         // Clear the form data from localStorage and reset the form
         clearFormData();
       } else {
-        // Add the server error to the validation errors
-        setValidationErrors(prev => ({
-          ...prev,
-          submit: `Lỗi: ${response.error || 'Không thể gửi biểu mẫu. Vui lòng thử lại sau.'}`
-        }));
+        setErrorMessage(`Lỗi: ${response.error || 'Không thể gửi biểu mẫu. Vui lòng thử lại sau.'}`);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      setValidationErrors(prev => ({
-        ...prev,
-        submit: 'Có lỗi xảy ra khi gửi biểu mẫu. Vui lòng thử lại sau.'
-      }));
+      setErrorMessage('Có lỗi xảy ra khi gửi biểu mẫu. Vui lòng thử lại sau.');
     } finally {
       setIsSubmitting(false);
     }
@@ -288,8 +284,21 @@ const ContactForm: React.FC<ContactFormProps> = ({ courseId }) => {
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Thông tin liên hệ của bạn</h2>
       
       {successMessage && (
-        <div className="p-4 mb-6 rounded-lg bg-green-500 bg-opacity-20 text-green-700">
+        <div className="p-4 mb-6 rounded-lg bg-green-500 bg-opacity-20 text-green-700 flex justify-between items-center">
           <p className="font-medium">{successMessage}</p>
+          <button 
+            onClick={() => setSuccessMessage(null)} 
+            className="ml-4 text-green-700 hover:text-green-900"
+            aria-label="Close success message"
+          >
+            &times;
+          </button>
+        </div>
+      )}
+      
+      {errorMessage && (
+        <div className="p-4 mb-6 rounded-lg bg-red-500 bg-opacity-20 text-red-700">
+          <p className="font-medium">{errorMessage}</p>
         </div>
       )}
       
@@ -405,7 +414,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ courseId }) => {
               ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary hover:bg-primary-dark'} 
               transition duration-300 ease-in-out transform hover:scale-[1.02]`}
           >
-            {isSubmitting ? 'Đang gửi...' : 'Gửi thông tin tư vấn'}
+            {isSubmitting ? 'Đang gửi...' : 'Gửi thông tin'}
           </button>
         </div>
       </form>

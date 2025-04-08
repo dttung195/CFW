@@ -13,10 +13,10 @@ const WhyUs: FC<WhyUsProps> = ({ isVisible }) => {
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Tại Sao Chọn Code Fun?</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Tại Sao Nên Chọn Code Fun?</h2>
+          {/* <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Chúng tôi cung cấp trải nghiệm học tập độc đáo kết hợp lý thuyết với các dự án thực tế để đảm bảo bạn có được kỹ năng thực tế.
-          </p>
+          </p> */}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

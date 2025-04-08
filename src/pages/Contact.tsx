@@ -18,13 +18,13 @@ const Contact: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Information */}
-          <div className="lg:col-span-1">
-            <ContactInfo />
-          </div>
-
-          {/* Contact Form */}
           <div className="lg:col-span-2">
             <ContactForm courseId={courseId} />
+          </div>
+
+          {/* Contact Information */}
+          <div className="lg:col-span-1">
+            <ContactInfo />
           </div>
         </div>
 

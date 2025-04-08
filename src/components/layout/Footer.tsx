@@ -28,7 +28,7 @@ const Footer = () => {
               <img src={logoNgangDark} alt="Code Fun Logo" className="h-12" />
             </Link>
             <p className="text-gray-400 mt-4">
-              Code Fun là trung tâm đào tạo công nghệ hàng đầu, cam kết trang bị cho học viên những kỹ năng lập trình hiện đại và thực tiễn.
+              Code Fun cam kết trang bị cho học viên những kỹ năng lập trình hiện đại và thực tiễn.
             </p>
             <div className="flex space-x-4 mt-6">
               <a href="https://www.facebook.com/codefun.edu.vn" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-gray-400 hover:text-primary transition-colors">

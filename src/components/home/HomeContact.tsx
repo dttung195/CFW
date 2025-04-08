@@ -64,6 +64,7 @@ const HomeContact = ({ isVisible }: HomeContactProps) => {
         email: "",
         subject: "Cần tư vấn thêm", // Default subject
         message: "Khách hàng đã gửi số điện thoại từ form trang chủ.",
+        registerMessage: "",
       };
       
       // Submit to the same Google Apps Script endpoint
@@ -130,9 +131,9 @@ const HomeContact = ({ isVisible }: HomeContactProps) => {
           <div className={`text-center mb-12 transition-all duration-1000 delay-300 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Sẵn Sàng Bắt Đầu Hành Trình Lập Trình?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Bạn vẫn còn những băn khoăn về việc học lập trình?</h2>
             <p className="text-xl mb-8 max-w-3xl mx-auto">
-              Tham gia cùng hàng nghìn học viên đã thay đổi sự nghiệp của họ với Code Fun. Bắt đầu học ngay hôm nay!
+              Đừng ngần ngại liên hệ với chúng tôi để được tư vấn và giải đáp mọi thắc mắc!
             </p>
           </div>
           
@@ -140,10 +141,7 @@ const HomeContact = ({ isVisible }: HomeContactProps) => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
             <div className="bg-white bg-opacity-10 p-8 rounded-lg backdrop-blur-sm">
-              <h3 className="text-2xl font-bold mb-4">Nhận Tư Vấn Miễn Phí</h3>
-              <p className="mb-6">
-                Để lại số điện thoại của bạn và chúng tôi sẽ liên hệ để tư vấn về khóa học phù hợp nhất với bạn.
-              </p>
+              <h3 className="text-2xl font-bold mb-4">Nhận tư vấn miễn phí</h3>
               
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
@@ -175,6 +173,12 @@ const HomeContact = ({ isVisible }: HomeContactProps) => {
                     </button>
                   </div>
                   
+                  {phoneData.formatted && phoneData.formatted !== phoneData.phone && (
+                    <p className="text-sm text-white text-opacity-90 mt-1">
+                      Số điện thoại đã định dạng: {phoneData.formatted}
+                    </p>
+                  )}
+                  
                   {validationError ? (
                     <p className="text-sm text-red-300 mt-2">
                       {validationError}
@@ -182,12 +186,6 @@ const HomeContact = ({ isVisible }: HomeContactProps) => {
                   ) : (
                     <p className="text-sm text-white text-opacity-80 mt-2">
                       * Chúng tôi sẽ chỉ sử dụng số điện thoại của bạn để liên hệ về khóa học
-                    </p>
-                  )}
-                  
-                  {phoneData.formatted && phoneData.formatted !== phoneData.phone && (
-                    <p className="text-sm text-white text-opacity-90 mt-1">
-                      Số điện thoại đã định dạng: {phoneData.formatted}
                     </p>
                   )}
                 </div>
@@ -211,9 +209,9 @@ const HomeContact = ({ isVisible }: HomeContactProps) => {
             </div>
             
             <div className="text-center md:text-left">
-              <h3 className="text-2xl font-bold mb-6">Hoặc Đăng Ký Ngay</h3>
+              <h3 className="text-2xl font-bold mb-6">Hoặc đăng ký ngay</h3>
               <p className="mb-8">
-                Khám phá các khóa học của chúng tôi và bắt đầu hành trình lập trình của bạn ngay hôm nay. Chúng tôi cung cấp nhiều khóa học cho mọi trình độ.
+                Khám phá các khóa học của chúng tôi và bắt đầu hành trình lập trình của bạn ngay hôm nay.
               </p>
               <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link

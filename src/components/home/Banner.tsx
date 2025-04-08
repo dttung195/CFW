@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, TouchEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { FaChevronLeft, FaChevronRight, FaPercent, FaGift, FaTag } from 'react-icons/fa';
+import { FaPercent, FaGift, FaTag } from 'react-icons/fa';
 
 interface HeroSlide {
   id: number;
@@ -42,14 +42,14 @@ const heroSlides: HeroSlide[] = [
   {
     id: 2,
     type: 'promo',
-    title: 'Giảm giá 50% cho khóa học React',
-    description: 'Đăng ký ngay hôm nay để nhận ưu đãi đặc biệt cho khóa học React nâng cao. Cơ hội có hạn!',
+    title: 'Chốt liền tay nhận ngay ưu đãi',
+    description: 'Giảm ngay 5% cho học viên đăng ký và hoàn thành học phí sớm.',
     bgColor: 'from-blue-500 to-indigo-600',
     icon: <FaPercent className="text-white text-4xl" />,
     buttons: [
       {
         text: 'Đăng Ký Ngay',
-        link: '/courses/react-development',
+        link: '/contact',
         primary: true
       }
     ]
@@ -57,14 +57,14 @@ const heroSlides: HeroSlide[] = [
   {
     id: 3,
     type: 'promo',
-    title: 'Khóa học mới: Python cho AI',
-    description: 'Khám phá khóa học mới về Python và ứng dụng trong trí tuệ nhân tạo. Bắt đầu sự nghiệp AI của bạn ngay hôm nay!',
+    title: 'Định hướng rõ ràng, càng nhiều ưu đãi',
+    description: 'Giảm ngay 5% cho học viên đăng ký theo học trọn gói lộ trình các lớp Android, iOS, Backend. Nhanh tay để nhận ngay ưu đãi',
     bgColor: 'from-green-500 to-teal-600',
     icon: <FaGift className="text-white text-4xl" />,
     buttons: [
       {
-        text: 'Tìm Hiểu Thêm',
-        link: '/courses/python-ai',
+        text: 'Đăng ký ngay',
+        link: '/contact',
         primary: true
       }
     ]
@@ -72,14 +72,14 @@ const heroSlides: HeroSlide[] = [
   {
     id: 4,
     type: 'promo',
-    title: 'Ưu đãi đặc biệt cho sinh viên',
-    description: 'Giảm 30% cho tất cả sinh viên khi đăng ký gói học 12 tháng. Cơ hội tuyệt vời để phát triển kỹ năng của bạn!',
+    title: 'Đôi bạn cùng tiến',
+    description: 'Nhận ưu đãi lên đến 1.500.000 VNĐ khi giới thiệu bạn bè theo học khoá bất kỳ tại trung tâm',
     bgColor: 'from-yellow-500 to-orange-600',
     icon: <FaTag className="text-white text-4xl" />,
     buttons: [
       {
-        text: 'Xem Ưu Đãi',
-        link: '/student-discount',
+        text: 'Liên hệ ngay',
+        link: '/contact',
         primary: true
       }
     ]
@@ -303,9 +303,9 @@ const Banner = ({ isVisible }: BannerProps) => {
     >
       <div 
         className="relative w-full transition-all duration-700 ease-in-out slider-container"
-        style={{ height: '600px' }}
+        style={{ height: '700px' }}
       >
-        <button 
+        {/* <button 
           onClick={prevHeroSlide}
           className="absolute left-4 top-1/2 z-20 bg-white bg-opacity-30 hover:bg-opacity-50 rounded-full p-3 text-white transition-all duration-300 transform hover:scale-110 focus:outline-none -translate-y-1/2"
           aria-label="Previous slide"
@@ -319,7 +319,7 @@ const Banner = ({ isVisible }: BannerProps) => {
           aria-label="Next slide"
         >
           <FaChevronRight size={24} />
-        </button>
+        </button> */}
 
         <div 
           ref={sliderRef}

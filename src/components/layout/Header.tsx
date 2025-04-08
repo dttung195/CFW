@@ -28,14 +28,7 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      // Add a small threshold to prevent flickering
-      if (currentScrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-      
+      setIsScrolled(currentScrollY > 20);
       lastScrollY.current = currentScrollY;
     };
 
@@ -57,11 +50,10 @@ const Header = () => {
 
   // Update active tab based on location
   useEffect(() => {
-    // Find the active link based on current path or hash
     const activeLink = navLinks.find(link => {
-      return (link.path != '/' && location.pathname.startsWith(link.path)) || 
-      (link.path === location.pathname && link.path === '/' ) || 
-      (link.section && location.pathname === '/' && location.hash === `#${link.section}` && link.name !== 'Course')
+      return (link.path !== '/' && location.pathname.startsWith(link.path)) || 
+      (link.path === location.pathname && link.path === '/') || 
+      (link.section && location.pathname === '/' && location.hash === `#${link.section}` && link.name !== 'Course');
     });
     
     if (activeLink) {
@@ -75,7 +67,6 @@ const Header = () => {
         const direction = prevIndex < newIndex ? 'right' : 'left';
         setIndicatorStyle(prev => ({ ...prev, direction }));
       }
-      
       setActiveTab(newTab);
       activeTabRef.current = newTab;
     } else {
@@ -96,7 +87,6 @@ const Header = () => {
         // Calculate position relative to the nav container
         const left = activeRect.left - navRect.left;
         const width = activeRect.width;
-        
         setIndicatorStyle(prev => ({
           ...prev,
           left,
@@ -107,32 +97,32 @@ const Header = () => {
   }, [activeTab, isScrolled]);
 
   // Handle smooth scrolling to sections
-  const scrollToSection = (sectionId: string | undefined, linkName: string, event?: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    if (!sectionId) return;
+  // const scrollToSection = (sectionId: string | undefined, linkName: string, event?: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  //   if (!sectionId) return;
     
-    setIsMobileMenuOpen(false);
-    setActiveTab(linkName);
-    activeTabRef.current = linkName;
+  //   setIsMobileMenuOpen(false);
+  //   setActiveTab(linkName);
+  //   activeTabRef.current = linkName;
     
-    // Create ripple effect if event is provided
-    if (event) {
-      createRippleEffect(event);
-    }
+  //   // Create ripple effect if event is provided
+  //   if (event) {
+  //     createRippleEffect(event);
+  //   }
     
-    // Only scroll if we're on the homepage
-    if (location.pathname === '/') {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        // Add a small delay to ensure any state changes complete first
-        setTimeout(() => {
-          element.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }, 100);
-      }
-    }
-  };
+  //   // Only scroll if we're on the homepage
+  //   if (location.pathname === '/') {
+  //     const element = document.getElementById(sectionId);
+  //     if (element) {
+  //       // Add a small delay to ensure any state changes complete first
+  //       setTimeout(() => {
+  //         element.scrollIntoView({ 
+  //           behavior: 'smooth',
+  //           block: 'start'
+  //         });
+  //       }, 100);
+  //     }
+  //   }
+  // };
 
   // Create ripple effect on click
   const createRippleEffect = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -140,7 +130,6 @@ const Header = () => {
     const circle = document.createElement('span');
     const diameter = Math.max(button.clientWidth, button.clientHeight);
     const radius = diameter / 2;
-
     const rect = button.getBoundingClientRect();
     
     circle.style.width = circle.style.height = `${diameter}px`;
@@ -170,6 +159,20 @@ const Header = () => {
     { name: 'Đánh giá', path: '/feedback' },
     { name: 'Blog', path: '/blog' },
   ];
+
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    // Cleanup function to reset overflow when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header 
@@ -208,54 +211,7 @@ const Header = () => {
 
           {navLinks.map((link) => {
             const isActive = activeTab === link.name;
-            
-            // Special case for Courses - always use NavLink
-            if (link.name === 'Course') {
-              return (
-                <NavLink
-                  key={link.name}
-                  to={link.path}
-                  ref={(el) => { navItemRefs.current[link.name] = el; }}
-                  onClick={(e) => {
-                    setActiveTab(link.name);
-                    activeTabRef.current = link.name;
-                    createRippleEffect(e);
-                  }}
-                  className={`text-lg font-medium transition-all duration-300 relative overflow-hidden group ${
-                    isActive 
-                      ? 'text-primary' 
-                      : isScrolled ? 'text-gray-800' : 'text-gray-800'
-                  }`}
-                >
-                  {link.name}
-                  <span className={`absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-5 transition-all duration-300 rounded-lg ${
-                    isActive ? 'bg-opacity-5' : ''
-                  }`}></span>
-                </NavLink>
-              );
-            }
-            
-            return link.section ? (
-              <a
-                key={link.name}
-                href={link.path}
-                ref={(el) => { navItemRefs.current[link.name] = el; }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.section, link.name, e);
-                }}
-                className={`text-lg font-medium transition-all duration-300 relative overflow-hidden group ${
-                  isActive 
-                    ? 'text-primary' 
-                    : isScrolled ? 'text-gray-800' : 'text-gray-800'
-                }`}
-              >
-                {link.name}
-                <span className={`absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-5 transition-all duration-300 rounded-lg ${
-                  isActive ? 'bg-opacity-5' : ''
-                }`}></span>
-              </a>
-            ) : (
+            return (
               <NavLink
                 key={link.name}
                 to={link.path}
@@ -300,13 +256,19 @@ const Header = () => {
           isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <div className="container py-8">
-          <div className="flex flex-col space-y-6">
-            {navLinks.map((link, index) => {
-              const isActive = activeTab === link.name;
-              const animationDelay = `${(index + 1) * 0.1}s`;
-              
-              if (link.name === 'Course') {
+        {isMobileMenuOpen ? (
+          <div className="container py-8 bg-white">
+            <button
+              className="absolute top-4 right-4 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Đóng menu"
+            >
+              <FaTimes className="w-6 h-6 text-gray-800" />
+            </button>
+            <div className="flex flex-col space-y-6">
+              {navLinks.map((link, index) => {
+                const isActive = activeTab === link.name;
+                const animationDelay = `${(index + 1) * 0.1}s`;
                 return (
                   <NavLink
                     key={link.name}
@@ -324,44 +286,13 @@ const Header = () => {
                     {link.name}
                   </NavLink>
                 );
-              }
-              
-              return link.section ? (
-                <a
-                  key={link.name}
-                  href={link.path}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsMobileMenuOpen(false);
-                    scrollToSection(link.section, link.name);
-                  }}
-                  className={`text-xl font-medium transition-all duration-300 ${
-                    isActive ? 'text-primary' : 'text-gray-800'
-                  } opacity-0 animate-fade-in-up`}
-                  style={{ animationDelay, animationFillMode: 'forwards' }}
-                >
-                  {link.name}
-                </a>
-              ) : (
-                <NavLink
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    setActiveTab(link.name);
-                    activeTabRef.current = link.name;
-                  }}
-                  className={`text-xl font-medium transition-all duration-300 ${
-                    isActive ? 'text-primary' : 'text-gray-800'
-                  } opacity-0 animate-fade-in-up`}
-                  style={{ animationDelay, animationFillMode: 'forwards' }}
-                >
-                  {link.name}
-                </NavLink>
-              );
-            })}
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div/>
+        )}
+        
       </div>
     </header>
   );
